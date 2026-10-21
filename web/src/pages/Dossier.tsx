@@ -442,9 +442,9 @@ function Maps({ t }: { t: TeamFile }) {
                 <tr key={m}>
                   <th scope="row" className="text-left"><Link to={`?mapa=${m}`} className="font-display text-xl tracking-wide hover:text-brand">{mapName(m)}</Link></th>
                   <td className="tabular">{r.matches}</td>
-                  <td className="tabular">{r.wins}–{r.matches - r.wins}</td>
-                  <td className="tabular">{pct(p.attack.win?.raw)} <span className="text-muted">({p.attack.win?.k}/{p.attack.win?.n})</span></td>
-                  <td className="tabular">{pct(p.defense.win?.raw)} <span className="text-muted">({p.defense.win?.k}/{p.defense.win?.n})</span></td>
+                  <td className="tabular whitespace-nowrap">{r.wins}–{r.matches - r.wins}</td>
+                  <td className="tabular whitespace-nowrap">{pct(p.attack.win?.raw)} <span className="text-muted">({p.attack.win?.k}/{p.attack.win?.n})</span></td>
+                  <td className="tabular whitespace-nowrap">{pct(p.defense.win?.raw)} <span className="text-muted">({p.defense.win?.k}/{p.defense.win?.n})</span></td>
                   <td>{c ? c.top_comp.agents.join(', ') : '—'}</td>
                   <td className="tabular">{c ? <span className="inline-flex items-center gap-2">{c.top_comp.k}/{c.top_comp.n} <SampleBadge badge={c.top_comp.badge} compact /></span> : '—'}</td>
                   <td className="text-muted">{c ? c.agents.slice(0, 5).map((a) => `${a.agent} ${pct(a.pct)}`).join(' · ') : '—'}</td>
