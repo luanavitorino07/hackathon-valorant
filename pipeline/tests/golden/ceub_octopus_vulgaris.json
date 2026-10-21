@@ -1,0 +1,212 @@
+{
+ "record": {
+  "matches": 30,
+  "wins": 14,
+  "rounds": 577,
+  "rounds_won": 285,
+  "atk_rounds": 310,
+  "def_rounds": 267
+ },
+ "insights": [
+  [
+   "player_fk",
+   "Jogador GN9 costuma abrir o round: primeiro abate em 16% dos rounds",
+   564
+  ],
+  [
+   "player_fd",
+   "Jogador GN9 é a primeira baixa do round em 17% dos rounds",
+   564
+  ],
+  [
+   "site_pref",
+   "Em Lotus, prefere plantar no C",
+   42
+  ],
+  [
+   "site_pref",
+   "Em Ascent, prefere plantar no A",
+   27
+  ],
+  [
+   "retake_site",
+   "Em Haven, segura bem o pós-plant no B",
+   11
+  ]
+ ],
+ "attack": {
+  "win": [
+   160,
+   310,
+   0.5162
+  ],
+  "plant_rate": [
+   225,
+   310,
+   0.7242
+  ],
+  "postplant_win": [
+   153,
+   225,
+   0.6821
+  ],
+  "plant_fast": [
+   90,
+   225,
+   0.3898
+  ],
+  "plant_late": [
+   70,
+   225,
+   0.3148
+  ]
+ },
+ "plant_time": {
+  "n": 225,
+  "badge": "ok",
+  "median": 41.5,
+  "q1": 26.6,
+  "q3": 62.1,
+  "ci_lo": 39.8,
+  "ci_hi": 45.4,
+  "median_pct": 0.463,
+  "class": "medium"
+ },
+ "defense": {
+  "win": [
+   125,
+   267,
+   0.469
+  ],
+  "no_plant": [
+   80,
+   267,
+   0.2994
+  ],
+  "retake": [
+   54,
+   187,
+   0.2896
+  ]
+ },
+ "pistol_win": [
+  30,
+  60,
+  0.5031
+ ],
+ "veto_maps": {
+  "abyss": {
+   "matches": 1,
+   "atk": {
+    "k": 6,
+    "n": 12
+   },
+   "def": {
+    "k": 1,
+    "n": 8
+   }
+  },
+  "ascent": {
+   "matches": 4,
+   "atk": {
+    "k": 17,
+    "n": 41
+   },
+   "def": {
+    "k": 12,
+    "n": 31
+   }
+  },
+  "haven": {
+   "matches": 9,
+   "atk": {
+    "k": 58,
+    "n": 102
+   },
+   "def": {
+    "k": 33,
+    "n": 74
+   }
+  },
+  "lotus": {
+   "matches": 6,
+   "atk": {
+    "k": 25,
+    "n": 53
+   },
+   "def": {
+    "k": 40,
+    "n": 72
+   }
+  },
+  "split": {
+   "matches": 3,
+   "atk": {
+    "k": 17,
+    "n": 30
+   },
+   "def": {
+    "k": 4,
+    "n": 22
+   }
+  },
+  "sunset": {
+   "matches": 7,
+   "atk": {
+    "k": 37,
+    "n": 72
+   },
+   "def": {
+    "k": 35,
+    "n": 60
+   }
+  }
+ },
+ "n_plants": 412,
+ "n_review": 11,
+ "n_anti_eco_losses": 3,
+ "players": [
+  [
+   30,
+   577,
+   334,
+   2
+  ],
+  [
+   30,
+   577,
+   401,
+   1
+  ],
+  [
+   30,
+   577,
+   354,
+   1
+  ],
+  [
+   29,
+   564,
+   438,
+   1
+  ],
+  [
+   16,
+   313,
+   304,
+   4
+  ],
+  [
+   14,
+   264,
+   213,
+   1
+  ],
+  [
+   1,
+   13,
+   4,
+   0
+  ]
+ ]
+}

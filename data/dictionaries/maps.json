@@ -1,0 +1,53 @@
+{
+  "_comment": "Gerado automaticamente pelo pipeline (matchInfo.mapId x sufixo do nome do arquivo).",
+  "/Game/Maps/Infinity/Infinity": {
+    "slug": "abyss",
+    "name": "Abyss",
+    "codename": "Infinity"
+  },
+  "/Game/Maps/Ascent/Ascent": {
+    "slug": "ascent",
+    "name": "Ascent",
+    "codename": "Ascent"
+  },
+  "/Game/Maps/Foxtrot/Foxtrot": {
+    "slug": "breeze",
+    "name": "Breeze",
+    "codename": "Foxtrot"
+  },
+  "/Game/Maps/Canyon/Canyon": {
+    "slug": "fracture",
+    "name": "Fracture",
+    "codename": "Canyon"
+  },
+  "/Game/Maps/Triad/Triad": {
+    "slug": "haven",
+    "name": "Haven",
+    "codename": "Triad"
+  },
+  "/Game/Maps/Jam/Jam": {
+    "slug": "lotus",
+    "name": "Lotus",
+    "codename": "Jam"
+  },
+  "/Game/Maps/Pitt/Pitt": {
+    "slug": "pearl",
+    "name": "Pearl",
+    "codename": "Pitt"
+  },
+  "/Game/Maps/Bonsai/Bonsai": {
+    "slug": "split",
+    "name": "Split",
+    "codename": "Bonsai"
+  },
+  "/Game/Maps/Plummet/Plummet": {
+    "slug": "summit",
+    "name": "Summit",
+    "codename": "Plummet"
+  },
+  "/Game/Maps/Juliett/Juliett": {
+    "slug": "sunset",
+    "name": "Sunset",
+    "codename": "Juliett"
+  }
+}
