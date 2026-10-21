@@ -195,7 +195,7 @@ def team_postplant(f: pd.DataFrame, points: dict, team: str, match_index: dict[s
     return {"plants": plants, "summary_atk": summary, "summary_def": dsum}
 
 
-def map_backgrounds(ctx: Context, params: dict, centers: pd.DataFrame, grid: int = 112) -> dict:
+def map_backgrounds(ctx: Context, params: dict, centers: pd.DataFrame, grid: int = 160) -> dict:
     """D12: mapa de densidade com posições reais da liga (sem arte da Riot)."""
     k = ctx.frames["kills"].merge(ctx.matches[["match_id", "map"]], on="match_id")
     s = ctx.frames["plant_snapshot"].merge(ctx.matches[["match_id", "map"]], on="match_id")

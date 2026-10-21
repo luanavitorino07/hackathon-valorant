@@ -13,6 +13,15 @@ def pct(x: float | None) -> str:
     return f"{round(100 * x):d}%"
 
 
+def prob(x: float) -> str:
+    """Probabilidade sem exagero: nunca '100%' nem '0%'."""
+    if x > 0.99:
+        return ">99%"
+    if x < 0.01:
+        return "<1%"
+    return pct(x)
+
+
 def mmss(seconds: float | None) -> str:
     if seconds is None:
         return "—"
@@ -118,7 +127,7 @@ def team_insights(reg: PropRegistry, team: str, maps: list[str], plant_profile: 
             kind, head,
             [{"label": label, "value": pct(st["raw"])},
              {"label": "liga", "value": pct(st["league"])},
-             {"label": "P(acima da liga)" if up else "P(abaixo da liga)", "value": pct(p if up else 1 - p)}],
+             {"label": "P(acima da liga)" if up else "P(abaixo da liga)", "value": prob(p if up else 1 - p)}],
             st, metric, "yes" if up else "no", strength, tone="positive" if up else "alert"))
 
     # Retake por mapa/site.

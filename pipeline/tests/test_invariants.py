@@ -69,13 +69,17 @@ def test_snapshot_roles_joined(frames):
     assert s.team_slug.notna().all()
 
 
-def test_no_puuid_in_web_output():
+def test_no_puuid_or_riot_id_in_web_output(tables):
+    """Privacidade (§1.3): nenhum PUUID nem gameName#tagLine nos arquivos públicos (build padrão)."""
     out = config.WEB_DATA_DIR
     if not out.exists():
         return
-    puuids = set(pd.read_parquet(config.TABLES_DIR / "players.parquet")["puuid"]) if (config.TABLES_DIR / "players.parquet").exists() else set()
-    sample = list(puuids)[:50]
-    for f in list(out.rglob("*.json"))[:200]:
+    puuids = set(tables.riot_ids)
+    riot_ids = {r for r in tables.riot_ids.values() if len(r) > 3}
+    index = json.loads((out / "index.json").read_text(encoding="utf-8"))
+    if index.get("real_names"):
+        return  # build interna com --real-names
+    for f in out.rglob("*.json"):
         text = f.read_text(encoding="utf-8")
-        assert not any(p in text for p in sample), f"PUUID vazou em {f}"
-        assert "gameName" not in text and "#" not in json.dumps(json.loads(text).get("real_name", "")), f
+        assert not any(p in text for p in puuids), f"PUUID vazou em {f}"
+        assert not any(r in text for r in riot_ids), f"nick real vazou em {f}"

@@ -64,8 +64,7 @@ class PropRegistry:
         if entry is None:
             return None
         _, _, yes, no = entry
-        cap = config.EVIDENCE_MAX
-        return {"yes": yes[:cap], "no": no[:cap], "yes_total": len(yes), "no_total": len(no)}
+        return {"yes": yes, "no": no, "yes_total": len(yes), "no_total": len(no)}
 
     def units(self, metric: str) -> list[str]:
         return list(self.data.get(metric, {}).keys())

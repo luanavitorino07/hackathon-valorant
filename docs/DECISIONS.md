@@ -31,3 +31,26 @@
 | D13 | Armas de habilidade | GUIDs `856D…`, `95336AE4…`, `39099FB5…` aparecem como "Habilidade"; desconhecidos como "Item #xxxx". | Evitar nome errado sem consultar API. |
 | D14 | Alias de jogador | `"Jogador " + 3 caracteres` (alfabeto de 32 símbolos sem ambíguos) de `sha256(sal + puuid)`; colisão resolvida rehashando com contador. Sal em `data/private/salt.txt` (gerado na 1ª execução, git-ignorado). | Estável entre execuções, sem PUUID na saída. |
 | D15 | Nicks reais | Só com `scoutroom all --real-names` (desligado por padrão): grava `data/private/aliases.csv` sempre, e só com a flag inclui nicks nos JSON. | Regra de privacidade §1.3. |
+| D16 | "Rounds para revisar" | Além de P(alternativa > decisão) > 90% e n ≥ 15: diferença mínima de 0,2 round (`REVIEW_MIN_GAP`) e alternativa viável com o "banco" do time (média de `loadoutValue + remaining` ≥ limiar da alternativa). Antes: só P > 90% → 50 rounds para UFMT Turuna, vários com diferença de 0,07 round ou full impossível; depois: 10. | Evitar apontar como "vale revisar" decisões forçadas pela economia. |
+| D17 | Probabilidade nos cartões | Exibida como ">99%" / "<1%" nos extremos, nunca "100%". | Honestidade estatística. |
+| D18 | Evidências | Ordenadas da partida mais recente para a mais antiga; limite de 60 por lista (rounds que sustentam e demais rounds). | O técnico quer ver primeiro o que é recente. |
+| D19 | Cartões de jogador | No máximo 2 cartões de jogador por time (FK e FD somados). Texto factual ("é a primeira baixa do round em X%"), sem juízo. | Evitar que jogadores dominem o resumo; microcopy sem culpa. |
+| D20 | Cores ATK/DEF | Mantidas do enunciado. Validador de paleta: separação para daltonismo ok (ΔE 15,8), mas o ciano #3DD6C6 fica acima da faixa de luminosidade; por isso ATK/DEF sempre têm forma (círculo × losango) e rótulo. Comparações time × liga usam destaque (brand) × cinza. | Cor nunca é a única informação. |
+| D21 | Rotas | `BrowserRouter` com as rotas do enunciado; o build copia `index.html` para `404.html` (GitHub Pages e similares). Base configurável por `VITE_BASE`. | Deploy estático sem servidor. |
+| D22 | Export | Sobrescreve os JSON no lugar e remove só os obsoletos (antes apagava a pasta, o que derrubava o servidor de dev do Vite). | Robustez no fluxo de desenvolvimento. |
+| D23 | TanStack Table | Fixada na v8 (API estável `useReactTable`); a v9 recém-lançada muda a API. | Menos risco no prazo. |
+| D24 | Arquivos de saída | `web/public/data` é versionado (sem PUUID/nicks) para permitir deploy sem os dados brutos. | Os JSON brutos não podem ir para o repositório. |
+
+## Relatório de marcos
+
+### M0–M2 (pipeline)
+- **Feito**: auditoria nos 336 arquivos (`schema_audit.md`), parser com 0 falhas (75 IDs com letra), tabelas Parquet/DuckDB com `valid_kills`, estatística comum, módulos A/B/C, cartões de insight, exportação para 68 times, 32 testes pytest verdes (incl. golden de 3 times).
+- **Ficou de fora**: clusters de formação (substituídos por regras explicáveis, como pedido); fusão de variantes de nome de time.
+- **Riscos novos**: 21 dos 68 times têm < 5 partidas (números ficam perto da liga); GUIDs de 3 armas de habilidade exibidos genericamente.
+- **Achados**: ver `methodology.md` §6.
+
+### M3–M5 (front)
+- **Feito**: Início, Dossiê (6 abas, filtros de mapa e lado na URL), Veto (no navegador), Pós-plant (SVG com densidade real), Economia (timeline Recharts), Método, drawer de evidências com mini linha do tempo, impressão A4 paisagem em 1 página; estados vazios e de erro; tsc/ESLint limpos; 17 testes Vitest; axe sem violações críticas; Lighthouse desktop 99–100; Chrome e Firefox.
+- **Ficou de fora**: deploy em um host específico (o build está pronto em `web/dist`); arte de minimapa (proibida/indisponível).
+- **Riscos**: o fundo do mapa depende da densidade de posições — em mapas com poucas partidas (Fracture, Pearl) a silhueta é rala.
+- **Achados para o vídeo**: (1) compacto no spike converte menos em todos os estratos; (2) UFMT Turuna planta em 81% dos ataques (liga 70%); (3) contra Azure Bears Golden, o Veto sugere banir Ascent/Haven/Lotus/Abyss.

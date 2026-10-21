@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import json
 import math
-import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -114,11 +113,10 @@ def build_all(frames: dict[str, pd.DataFrame], riot_ids: dict[str, str], out_dir
     write_private_aliases(aliases, riot_ids)
     names = riot_ids if real_names else None
 
-    if out_dir.exists():
-        shutil.rmtree(out_dir)
-    (out_dir / "teams").mkdir(parents=True)
-    (out_dir / "evidence").mkdir(parents=True)
-    (out_dir / "maps").mkdir(parents=True)
+    # Sobrescreve no lugar (sem apagar a pasta, para não derrubar o servidor de dev) e remove obsoletos no fim.
+    before = set(out_dir.rglob("*.json")) if out_dir.exists() else set()
+    for sub in ("teams", "evidence", "maps"):
+        (out_dir / sub).mkdir(parents=True, exist_ok=True)
 
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     sizes = {}
@@ -182,7 +180,7 @@ def build_all(frames: dict[str, pd.DataFrame], riot_ids: dict[str, str], out_dir
                 e = reg.evidence(metric, unit)
                 if e and e["yes_total"]:
                     ev[f"{metric}|{alias}"] = _ev_refs(e, midx)
-        ev["econ.anti_eco_losses"] = {"yes": [[a["m"], a["r"]] for a in team_json["economy"]["anti_eco_losses"]][: config.EVIDENCE_MAX],
+        ev["econ.anti_eco_losses"] = {"yes": sorted([[a["m"], a["r"]] for a in team_json["economy"]["anti_eco_losses"]], key=lambda x: (-x[0], x[1]))[: config.EVIDENCE_MAX],
                                       "no": [], "yes_total": len(team_json["economy"]["anti_eco_losses"]), "no_total": 0}
         write_json(out_dir / "evidence" / f"{team}.json", {"slug": team, "match_ids": [m["match_id"] for m in matches], "metrics": ev})
 
@@ -252,13 +250,23 @@ def build_all(frames: dict[str, pd.DataFrame], riot_ids: dict[str, str], out_dir
         "real_names": bool(real_names),
     }
     write_json(out_dir / "index.json", index)
+    written = {out_dir / "index.json", out_dir / "league.json"}
+    written |= {out_dir / d / f"{t}.json" for t in teams for d in ("teams", "evidence")}
+    written |= {out_dir / "maps" / f"{mp}.json" for mp in bgs}
+    if not teams_filter:
+        for stale in before - written:
+            stale.unlink()
     return {"sizes": sizes, "ctx": ctx, "reg": reg, "features": f}
 
 
 def _ev_refs(e: dict, midx: dict[str, int]) -> dict:
+    """Partidas mais recentes primeiro; no máximo EVIDENCE_MAX rounds por lista."""
+    def conv(refs):
+        out = sorted(([midx[mid], int(r)] for mid, r in refs if mid in midx), key=lambda x: (-x[0], x[1]))
+        return out[: config.EVIDENCE_MAX]
     return {
-        "yes": [[midx[mid], r] for mid, r in e["yes"] if mid in midx],
-        "no": [[midx[mid], r] for mid, r in e["no"] if mid in midx],
+        "yes": conv(e["yes"]),
+        "no": conv(e["no"]),
         "yes_total": e["yes_total"],
         "no_total": e["no_total"],
     }
