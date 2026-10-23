@@ -74,6 +74,13 @@ export default function PostPlant() {
     [plantsAll, role, mapa, site, result, archetype],
   )
 
+  const medianPlantTime = useMemo(() => {
+    if (filtered.length === 0) return null
+    const times = filtered.map((p) => p.t).sort((a, b) => a - b)
+    const mid = Math.floor(times.length / 2)
+    return times.length % 2 !== 0 ? times[mid] : (times[mid - 1] + times[mid]) / 2
+  }, [filtered])
+
   if (idx.error || league.error) return <ErrorState message={(idx.error ?? league.error)!} />
   if (!idx.data || !league.data) return <Skeleton lines={5} />
   const t = team.data
@@ -117,8 +124,20 @@ export default function PostPlant() {
       {t && mapa && mapsWithPlants.length > 0 && (
         <div className="grid grid-cols-12 gap-6 mt-8">
           <div className="col-span-12 xl:col-span-7">
-            <div className="flex items-center justify-between mb-3">
-              <div className="font-display text-3xl tabular" aria-live="polite">{num(filtered.length)} plants</div>
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+              <div className="flex flex-wrap items-baseline gap-3">
+                <div className="font-display text-3xl tabular" aria-live="polite">{num(filtered.length)} plants</div>
+                {medianPlantTime !== null && (
+                  <div className="text-sm tabular flex items-center gap-1.5 bg-surface border border-border px-3 py-1">
+                    <span className="text-muted">
+                      {site === 'all' ? 'Tempo de plant (mediana):' : `Tempo no Site ${site} (mediana):`}
+                    </span>
+                    <span className="text-bone font-semibold text-base">
+                      ⏱ {mmss(Math.round(medianPlantTime))}
+                    </span>
+                  </div>
+                )}
+              </div>
               <div role="group" aria-label="Enquadramento" className="inline-flex">
                 <button type="button" className="btn-ghost" aria-pressed={zoom === 'site'} onClick={() => setZoom('site')} disabled={site === 'all'}>Site</button>
                 <button type="button" className="btn-ghost -ml-px" aria-pressed={zoom === 'map' || site === 'all'} onClick={() => setZoom('map')}>Mapa inteiro</button>
