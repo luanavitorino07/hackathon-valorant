@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { MapFile, Plant } from '../lib/types'
 import { mapName } from '../lib/labels'
+import { getMapOverlayBounds } from '../lib/mapConfig'
 
 // Orientação do minimapa: x_svg = y_jogo, y_svg = −x_jogo (eixos trocados, ver DECISIONS D12).
 const toSvg = (x: number, y: number): [number, number] => [y, -x]
@@ -42,6 +43,8 @@ interface Props {
 /** Pontos no instante do plant: ATK (círculo vermelho) e DEF (losango ciano), seta curta = mira. */
 export function FormationMap({ map, plants, site, selected, zoom = 'site', title }: Props) {
   const img = useDensityImage(map)
+  const overlay = useMemo(() => getMapOverlayBounds(map?.map), [map?.map])
+
   const { box, R, center } = useMemo(() => {
     if (!map) return { box: null, R: null, center: null }
     const b = map.bounds
@@ -92,7 +95,32 @@ export function FormationMap({ map, plants, site, selected, zoom = 'site', title
             <feGaussianBlur stdDeviation={(imgBox.w / (map.grid || 1)) * 0.6} />
           </filter>
         </defs>
-        {img && <image filter="url(#density-soft)" href={img} x={imgBox.x} y={imgBox.y} width={imgBox.w} height={imgBox.h} preserveAspectRatio="none" />}
+        {/* Contornos oficiais das paredes e corredores do mapa */}
+        {overlay && (
+          <image
+            href={overlay.imagePath}
+            x={overlay.x}
+            y={overlay.y}
+            width={overlay.w}
+            height={overlay.h}
+            preserveAspectRatio="none"
+            opacity={0.8}
+            className="pointer-events-none select-none"
+          />
+        )}
+        {/* Preenchimento suave de densidade de circulação da liga */}
+        {img && (
+          <image
+            filter="url(#density-soft)"
+            href={img}
+            x={imgBox.x}
+            y={imgBox.y}
+            width={imgBox.w}
+            height={imgBox.h}
+            preserveAspectRatio="none"
+            opacity={overlay ? 0.35 : 1}
+          />
+        )}
         {Object.entries(map.sites).map(([name, s]) => {
           const [cx, cy] = toSvg(s.cx, s.cy)
           const active = site === 'all' || site === name
@@ -129,7 +157,7 @@ export function FormationMap({ map, plants, site, selected, zoom = 'site', title
         <span className="inline-flex items-center gap-1.5"><svg aria-hidden="true" width="12" height="12"><rect x="2.5" y="2.5" width="7" height="7" fill="var(--color-bone)" transform="rotate(45 6 6)" /></svg>Spike</span>
         <span className="inline-flex items-center gap-1.5"><svg aria-hidden="true" width="16" height="12"><circle cx="8" cy="6" r="5" fill="none" stroke="var(--color-bone)" strokeDasharray="2 2" /></svg>Raio R do site (2R tracejado fraco)</span>
         {showArrows && <span>Traço curto = direção da mira</span>}
-        <span>Fundo: densidade de posições da liga neste mapa (sem arte oficial)</span>
+        <span>Fundo: contornos oficiais do mapa com densidade de posições da liga</span>
       </figcaption>
     </figure>
   )
