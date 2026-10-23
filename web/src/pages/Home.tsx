@@ -61,7 +61,7 @@ export function Home() {
         <h2 className="section-rule eyebrow mb-4" id="mod-title">Três módulos</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {MODULES.map((m) => (
-            <article key={m.title} className="card card-cut p-6 flex flex-col gap-3">
+            <article key={m.title} className="card card-tilt card-cut p-6 flex flex-col gap-3">
               <span className="eyebrow text-brand">{m.tag}</span>
               <h3>{m.title}</h3>
               <p className="text-muted">{m.text}</p>

@@ -17,7 +17,7 @@ interface Props {
 export function StatCard({ label, stat, hint, color, onEvidence, evidenceCount }: Props) {
   if (!stat || stat.n === 0) {
     return (
-      <div className="card p-4 animate-enter">
+      <div className="card card-tilt p-4 animate-enter">
         <div className="eyebrow">{label}</div>
         <div className="mt-2 font-display text-4xl text-muted">—</div>
         <p className="mt-2 text-sm text-muted">Sem rounds nesta seleção.</p>
@@ -27,7 +27,7 @@ export function StatCard({ label, stat, hint, color, onEvidence, evidenceCount }
   const post = posterior(stat.k, stat.n, stat.alpha, stat.beta)
   const insufficient = stat.badge === 'insufficient'
   return (
-    <div className="card p-4 flex flex-col gap-2 animate-enter">
+    <div className="card card-tilt p-4 flex flex-col gap-2 animate-enter">
       <div className="flex items-start justify-between gap-2">
         <div className="eyebrow">{label}</div>
         <SampleBadge badge={stat.badge} n={stat.n} compact />

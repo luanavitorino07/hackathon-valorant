@@ -95,7 +95,8 @@ export function FormationMap({ map, plants, site, selected, zoom = 'site', title
 
   return (
     <figure className="m-0">
-      <svg viewBox={`${box.x} ${box.y} ${box.w} ${box.h}`} role="img" aria-label={ariaLabel} className="w-full aspect-square bg-[#070c12] border border-border block">
+      <div className="map-stage">
+      <svg viewBox={`${box.x} ${box.y} ${box.w} ${box.h}`} role="img" aria-label={ariaLabel} className={`w-full aspect-square bg-[#070c12] border border-border block map-tilt${selected ? ' is-flat' : ''}`}>
         <title>{ariaLabel}</title>
         <defs>
           <radialGradient id="map-radar-bg" cx="50%" cy="50%" r="70%">
@@ -190,13 +191,14 @@ export function FormationMap({ map, plants, site, selected, zoom = 'site', title
           )
         })}
         {/* Cantoneiras táticas nos quatro cantos do radar */}
-        <g stroke="var(--color-bone)" strokeOpacity="0.25" strokeWidth={unit * 0.25} fill="none" strokeLinecap="square">
+        <g className={`map-corners${selected ? ' is-active' : ''}`} stroke="var(--color-bone)" strokeOpacity="0.25" strokeWidth={unit * 0.25} fill="none" strokeLinecap="square">
           <path d={cTL} />
           <path d={cTR} />
           <path d={cBL} />
           <path d={cBR} />
         </g>
       </svg>
+      </div>
       <figcaption className="mt-2 flex flex-wrap items-center gap-4 text-[13px] text-muted">
         <span className="inline-flex items-center gap-1.5"><svg aria-hidden="true" width="12" height="12"><circle cx="6" cy="6" r="5" fill="var(--color-atk)" /></svg>Atacante vivo</span>
         <span className="inline-flex items-center gap-1.5"><svg aria-hidden="true" width="12" height="12"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="var(--color-def)" /></svg>Defensor vivo</span>

@@ -1,9 +1,43 @@
+import { useEffect } from 'react'
 import type { ReactNode } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { Footer } from './Footer'
 import { lastTeam } from '../lib/prefs'
 
+/** Tilt 3D + brilho que segue o cursor nos elementos .card-tilt (delegação, sem re-render). */
+function useCardTilt() {
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const MAX = 5 // graus
+    const onMove = (e: PointerEvent) => {
+      if (e.pointerType === 'touch') return
+      const el = (e.target as HTMLElement | null)?.closest<HTMLElement>('.card-tilt')
+      if (!el) return
+      const r = el.getBoundingClientRect()
+      const px = (e.clientX - r.left) / r.width
+      const py = (e.clientY - r.top) / r.height
+      el.style.setProperty('--ry', `${((px - 0.5) * 2 * MAX).toFixed(2)}deg`)
+      el.style.setProperty('--rx', `${((0.5 - py) * 2 * MAX).toFixed(2)}deg`)
+      el.style.setProperty('--mx', `${(px * 100).toFixed(1)}%`)
+      el.style.setProperty('--my', `${(py * 100).toFixed(1)}%`)
+    }
+    const onLeave = (e: PointerEvent) => {
+      const el = e.target instanceof HTMLElement ? e.target.closest<HTMLElement>('.card-tilt') : null
+      if (!el || el.contains(e.relatedTarget as Node | null)) return
+      el.style.setProperty('--rx', '0deg')
+      el.style.setProperty('--ry', '0deg')
+    }
+    document.addEventListener('pointermove', onMove, { passive: true })
+    document.addEventListener('pointerout', onLeave, { passive: true })
+    return () => {
+      document.removeEventListener('pointermove', onMove)
+      document.removeEventListener('pointerout', onLeave)
+    }
+  }, [])
+}
+
 export function AppShell({ children }: { children: ReactNode }) {
+  useCardTilt()
   const loc = useLocation()
   const team = lastTeam()
   const q = team ? `?time=${team}` : ''

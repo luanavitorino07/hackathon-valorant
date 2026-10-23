@@ -14,7 +14,7 @@ export function InsightCard({ card, slug, index = 0 }: { card: InsightCardData; 
   const openEvidence = useEvidenceDrawer()
   return (
     <article
-      className={`card card-cut border-l-4 ${TONE[card.tone]} p-5 flex flex-col gap-3 animate-enter`}
+      className={`card card-tilt card-cut border-l-4 ${TONE[card.tone]} p-5 flex flex-col gap-3 animate-enter`}
       style={{ animationDelay: `${Math.min(index, 6) * 30}ms` }}
     >
       <div className="flex items-center justify-between gap-2">
