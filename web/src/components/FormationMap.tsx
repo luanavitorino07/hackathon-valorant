@@ -126,8 +126,28 @@ export function FormationMap({ map, plants, site, selected, zoom = 'site', title
           const active = site === 'all' || site === name
           return (
             <g key={name} opacity={active ? 1 : 0.35}>
-              {s.R && <circle cx={cx} cy={cy} r={s.R} fill="none" stroke="var(--color-bone)" strokeOpacity="0.55" strokeWidth={unit * 0.25} strokeDasharray={`${unit} ${unit * 0.8}`} />}
-              <text x={cx} y={cy - (s.R ?? 800) - unit * 1.5} textAnchor="middle" fill="var(--color-bone)" fontSize={unit * 5} fontFamily="var(--font-display)">{name}</text>
+              {s.R && (
+                <circle
+                  cx={cx}
+                  cy={cy}
+                  r={s.R}
+                  fill="none"
+                  stroke="var(--color-bone)"
+                  strokeOpacity="0.55"
+                  strokeWidth={unit * 0.25}
+                  strokeDasharray={`${unit} ${unit * 0.8}`}
+                />
+              )}
+              <text
+                x={cx}
+                y={cy - (s.R ?? 800) - unit * 1.5}
+                textAnchor="middle"
+                fill="var(--color-bone)"
+                fontSize={unit * 5}
+                fontFamily="var(--font-display)"
+              >
+                {name}
+              </text>
             </g>
           )
         })}
