@@ -6,7 +6,7 @@
 2. Um único comando `scoutroom all` roda auditoria, tabelas, métricas e exportação; seeds fixas.
 3. Estatística comum em `stats.py` (beta-binomial com prior empírico, selo, medianas com bootstrap, P(A>B)).
 4. Módulo A: perfil por fatia (todos os mapas + cada mapa), cartões de insight por regras, dados do Veto (k, n por mapa/lado).
-5. Módulo B: centros de site pela mediana das `plantLocation`, features dos atacantes vivos, arquétipos por regra, estratos por vantagem numérica.
+5. Módulo B: centros de BOMB pela mediana das `plantLocation`, features dos atacantes vivos, arquétipos por regra, estratos por vantagem numérica.
 6. Módulo C: tipo de compra, tabela da liga, perfil do time, retorno em 2 rounds, linha do tempo por partida.
 7. Front Vite + React + TS + Tailwind v4: só lê `public/data`; Veto calculado no navegador.
 8. Testes: pytest (parser, invariâncias, estatística, golden de 3 times) e Vitest (formatadores, Veto, beta).

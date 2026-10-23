@@ -24,7 +24,7 @@ Não há modelo treinado; portanto não há separação treino/teste (se houver 
 
 ## 3. Módulo A — Scouting e Veto
 
-- Fatias: todos os mapas + cada mapa. Métricas: vitória no ataque/defesa, taxa de plant, vitória pós-plant, % de sites (por mapa), retake por site, % de rounds de defesa sem plant adversário, pistols (R1/R13, por lado), compra no round seguinte ao pistol (R2/R14) após vencer/perder.
+- Fatias: todos os mapas + cada mapa. Métricas: vitória no ataque/defesa, taxa de plant, vitória pós-plant, % de BOMBs (por mapa), retake por BOMB, % de rounds de defesa sem plant adversário, pistols (R1/R13, por lado), compra no round seguinte ao pistol (R2/R14) após vencer/perder.
 - Ritmo do plant: percentil de cada plant na distribuição da liga do mesmo mapa; classe pela mediana dos percentis (< 1/3 rápido, > 2/3 tardio).
 - Jogadores: FK = matador do primeiro abate válido do round; FD = vítima dele; prior ajustado entre jogadores. Clutch atribuído ao único vivo do time vencedor (D10).
 - Cartões: candidatos por regra; emitidos só com n ≥ 5 e (P vs. liga > 0,9 ou participação ≥ 1,25× uniforme). Ordenação: selo ok antes de baixo, depois força da evidência; no máx. 2 por tipo e 8 no total.
@@ -33,8 +33,8 @@ Não há modelo treinado; portanto não há separação treino/teste (se houver 
 ## 4. Módulo B — Pós-plant
 
 - Snapshot `plantPlayerLocations` (todos os vivos, sem time) + join com o time de cada puuid + lado do round.
-- Centro do site = mediana das `plantLocation` da liga por mapa/site. R = mediana das distâncias atacante→spike (mapa/site).
-- Features: distância média, desvio-padrão das distâncias, nº no site (< R), alinhamento de mira (±60° da direção do spike; só atacantes a ≥ 150 u), defensores vivos e distância média.
+- Centro do BOMB = mediana das `plantLocation` da liga por mapa/BOMB. R = mediana das distâncias atacante→spike (mapa/BOMB).
+- Features: distância média, desvio-padrão das distâncias, nº no BOMB (< R), alinhamento de mira (±60° da direção do spike; só atacantes a ≥ 150 u), defensores vivos e distância média.
 - Rótulos: compacto (dist. média ≤ tercil 1/3 da liga), aberto (dispersão ≥ tercil 2/3, 2+ atacantes), lurk (1+ atacante > 2R, sem AFK provável).
 - Resultado: vitória do ataque, comparando com/sem rótulo dentro de estratos de vantagem (≤ −1, 0, ≥ +1), prior uniforme, marcado como exploratório.
 

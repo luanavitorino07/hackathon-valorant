@@ -75,7 +75,7 @@ export default function Method() {
           <p>
             “Diferença provável” só quando P &gt; {pct(P.prob_threshold)} (ou &lt; {pct(1 - P.prob_threshold)}). Os cartões vêm de regras fixas com textos-modelo preenchidos pelos números
             calculados — <strong>nenhum modelo de linguagem gera números ou frases</strong>. Um cartão só aparece com n ≥ {P.insight.min_n} e diferença provável contra a liga,
-            ou participação ≥ {num(P.insight.share_ratio, 2)}× o esperado numa distribuição uniforme (ex.: 3 sites → 33%).
+            ou participação ≥ {num(P.insight.share_ratio, 2)}× o esperado numa distribuição uniforme (ex.: 3 BOMBs → 33%).
           </p>
           <p>Nada aqui afirma causa: “prefere”, “costuma” e “sugestão” descrevem padrões nos dados.</p>
         </Block>
@@ -90,12 +90,12 @@ export default function Method() {
         <Block title="Pós-plant">
           <p>
             No instante do plant, o JSON traz a posição e a mira de todos os vivos, sem dizer o time; fazemos o join com a lista de jogadores e com o lado do round.
-            O centro de cada site é a mediana das posições de plant da liga. R = distância mediana dos atacantes vivos ao spike, por mapa e site.
+            O centro de cada BOMB é a mediana das posições de plant da liga. R = distância mediana dos atacantes vivos ao spike, por mapa e BOMB.
           </p>
           <ul className="list-disc pl-5 flex flex-col gap-1">
             <li><strong>Compacto no spike</strong>: distância média dos atacantes no terço mais baixo da liga.</li>
             <li><strong>Aberto</strong>: dispersão das distâncias no terço mais alto (2+ atacantes).</li>
-            <li><strong>Fora do site / lurk</strong>: 1+ atacante a mais de {num(P.postplant.lurk_factor)}R, ignorando quem não gastou créditos nem causou dano no round (provável AFK).</li>
+            <li><strong>Fora do BOMB / lurk</strong>: 1+ atacante a mais de {num(P.postplant.lurk_factor)}R, ignorando quem não gastou créditos nem causou dano no round (provável AFK).</li>
             <li><strong>Mira alinhada</strong>: fração dos atacantes (a mais de {num(P.postplant.aim_min_dist)} unidades do spike) olhando a ±{P.postplant.aim_tolerance_deg}° da direção do spike.</li>
           </ul>
           <p>As comparações são feitas dentro de estratos de vantagem numérica (≤ −1, 0, ≥ +1) e marcadas como exploratórias.</p>

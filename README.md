@@ -42,7 +42,7 @@ web/                 Vite + React + TypeScript + Tailwind v4 (só lê web/public
 docs/                schema_audit.md, methodology.md, DECISIONS.md, screenshots/
 ```
 
-Arquivos gerados em `web/public/data/`: `index.json` (times, dataset, pool atual), `league.json` (taxas da liga por mapa/lado, tabela de economia, retornos, priors, parâmetros), `teams/{slug}.json` (perfil, playbook e economia com k e n), `evidence/{slug}.json` (match + round por métrica, até 60), `maps/{mapa}.json` (densidade de posições e centros de site). O Veto é calculado no navegador.
+Arquivos gerados em `web/public/data/`: `index.json` (times, dataset, pool atual), `league.json` (taxas da liga por mapa/lado, tabela de economia, retornos, priors, parâmetros), `teams/{slug}.json` (perfil, playbook e economia com k e n), `evidence/{slug}.json` (match + round por métrica, até 60), `maps/{mapa}.json` (densidade de posições e centros de BOMB). O Veto é calculado no navegador.
 
 ## Regras respeitadas
 
@@ -58,13 +58,13 @@ Time **UFMT Turuna** (36 partidas) × adversário **Azure Bears Golden** (32 par
 1. Início → escolher UFMT Turuna → "Gerar dossiê": cartões como "Planta a spike com frequência" (81% vs. 70% da liga, n = 326) e "Vence mais rounds de ataque que a média da liga" (61% vs. 52%).
 2. Ver evidências de um cartão → painel lateral com os rounds e a linha do tempo da partida.
 3. Veto → B = Azure Bears Golden: Ascent, Haven, Lotus e Abyss aparecem como "Banir" (intervalo de 80% abaixo de zero); Sunset fica "Dados insuficientes" (B não tem rounds lá).
-4. Pós-plant → Ascent, site A: formações no instante do plant e a tabela da liga por estrato.
+4. Pós-plant → Ascent, BOMB A: formações no instante do plant e a tabela da liga por estrato.
 5. Economia → rounds para revisar e linha do tempo de uma partida.
 6. "Imprimir dossiê" → 1 página A4 paisagem.
 
 ## Testes e qualidade
 
-- `pytest`: parser dos 336 nomes (incluindo `001a`), invariâncias por partida (rounds, kills válidas, plantador/defusador, sites, tipos de compra), estatística (shrinkage em [0,1], monótono em k, seeds), golden de 3 times, ausência de PUUID na saída.
+- `pytest`: parser dos 336 nomes (incluindo `001a`), invariâncias por partida (rounds, kills válidas, plantador/defusador, BOMBs, tipos de compra), estatística (shrinkage em [0,1], monótono em k, seeds), golden de 3 times, ausência de PUUID na saída.
 - `vitest`: formatadores pt-BR, Beta no navegador (contra valores do SciPy) e cálculo do Veto.
 - `tsc` sem erros, ESLint limpo, axe sem violações críticas, Lighthouse desktop 99–100 em desempenho/acessibilidade/boas práticas, verificado em Chrome e Firefox (screenshots em `docs/screenshots/`).
 

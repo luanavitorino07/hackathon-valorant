@@ -65,7 +65,7 @@ export function FormationMap({ map, plants, site, selected, zoom = 'site', title
   const showArrows = !!selected || plants.length <= 12
   const list = selected ? [selected] : plants
   const faded = selected ? plants.filter((p) => p !== selected) : []
-  const ariaLabel = `${title ?? 'Formação no instante do plant'}: ${mapName(map.map)}${site !== 'all' ? `, site ${site}` : ''}, ${plants.length} plants. Atacantes em círculos vermelhos, defensores em losangos cianos.`
+  const ariaLabel = `${title ?? 'Formação no instante do plant'}: ${mapName(map.map)}${site !== 'all' ? `, BOMB ${site}` : ''}, ${plants.length} plants. Atacantes em círculos vermelhos, defensores em losangos cianos.`
 
   const m = unit * 2.5
   const cl = unit * 6
@@ -203,7 +203,7 @@ export function FormationMap({ map, plants, site, selected, zoom = 'site', title
         <span className="inline-flex items-center gap-1.5"><svg aria-hidden="true" width="12" height="12"><circle cx="6" cy="6" r="5" fill="var(--color-atk)" /></svg>Atacante vivo</span>
         <span className="inline-flex items-center gap-1.5"><svg aria-hidden="true" width="12" height="12"><path d="M6 0.5 L11.5 6 L6 11.5 L0.5 6 Z" fill="var(--color-def)" /></svg>Defensor vivo</span>
         <span className="inline-flex items-center gap-1.5"><svg aria-hidden="true" width="12" height="12"><rect x="2.5" y="2.5" width="7" height="7" fill="var(--color-bone)" transform="rotate(45 6 6)" /></svg>Spike</span>
-        <span className="inline-flex items-center gap-1.5"><svg aria-hidden="true" width="16" height="12"><circle cx="8" cy="6" r="5" fill="none" stroke="var(--color-bone)" strokeDasharray="2 2" /></svg>Raio R do site (2R tracejado fraco)</span>
+        <span className="inline-flex items-center gap-1.5"><svg aria-hidden="true" width="16" height="12"><circle cx="8" cy="6" r="5" fill="none" stroke="var(--color-bone)" strokeDasharray="2 2" /></svg>Raio R do BOMB (2R tracejado fraco)</span>
         {showArrows && <span>Traço curto = direção da mira</span>}
         <span>Fundo: contornos oficiais do mapa com densidade de posições da liga</span>
       </figcaption>
