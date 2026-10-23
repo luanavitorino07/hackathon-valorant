@@ -71,23 +71,6 @@
     pointer-events: none;
     z-index: 0;
   }
-  /* scanline: faixa translúcida que desce lentamente, estilo terminal tático */
-  body::after {
-    content: "";
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 140px;
-    background: linear-gradient(180deg, transparent 0%, rgba(61, 214, 198, 0.045) 50%, transparent 100%);
-    pointer-events: none;
-    z-index: 0;
-    animation: scanline 9s linear infinite;
-  }
-  @keyframes scanline {
-    from { transform: translate3d(0, -140px, 0); }
-    to { transform: translate3d(0, 100vh, 0); }
-  }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
     text-transform: uppercase;
