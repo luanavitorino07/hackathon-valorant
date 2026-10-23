@@ -1,0 +1,254 @@
+{
+ "record": {
+  "matches": 36,
+  "wins": 23,
+  "rounds": 705,
+  "rounds_won": 393,
+  "atk_rounds": 326,
+  "def_rounds": 379
+ },
+ "insights": [
+  [
+   "plant_rate",
+   "Planta a spike com frequência",
+   326
+  ],
+  [
+   "atk_win",
+   "Vence mais rounds de ataque que a média da liga",
+   326
+  ],
+  [
+   "no_plant",
+   "Defesa nega o plant com frequência",
+   379
+  ],
+  [
+   "player_fd",
+   "Jogador 762 é a primeira baixa do round em 16% dos rounds",
+   595
+  ],
+  [
+   "player_fk",
+   "Jogador 7S9 costuma abrir o round: primeiro abate em 14% dos rounds",
+   705
+  ],
+  [
+   "postplant",
+   "Converte bem depois de plantar",
+   263
+  ],
+  [
+   "site_pref",
+   "Em Haven, prefere plantar no A",
+   46
+  ],
+  [
+   "site_pref",
+   "Em Split, prefere plantar no A",
+   16
+  ]
+ ],
+ "attack": {
+  "win": [
+   200,
+   326,
+   0.6092
+  ],
+  "plant_rate": [
+   263,
+   326,
+   0.7999
+  ],
+  "postplant_win": [
+   196,
+   263,
+   0.7429
+  ],
+  "plant_fast": [
+   85,
+   263,
+   0.3246
+  ],
+  "plant_late": [
+   77,
+   263,
+   0.2986
+  ]
+ },
+ "plant_time": {
+  "n": 263,
+  "badge": "ok",
+  "median": 44.7,
+  "q1": 32.2,
+  "q3": 65.3,
+  "ci_lo": 43.1,
+  "ci_hi": 46.1,
+  "median_pct": 0.487,
+  "class": "medium"
+ },
+ "defense": {
+  "win": [
+   193,
+   379,
+   0.5081
+  ],
+  "no_plant": [
+   131,
+   379,
+   0.3431
+  ],
+  "retake": [
+   71,
+   248,
+   0.2874
+  ]
+ },
+ "pistol_win": [
+  44,
+  72,
+  0.5434
+ ],
+ "veto_maps": {
+  "abyss": {
+   "matches": 1,
+   "atk": {
+    "k": 2,
+    "n": 5
+   },
+   "def": {
+    "k": 2,
+    "n": 12
+   }
+  },
+  "ascent": {
+   "matches": 12,
+   "atk": {
+    "k": 69,
+    "n": 100
+   },
+   "def": {
+    "k": 79,
+    "n": 126
+   }
+  },
+  "breeze": {
+   "matches": 1,
+   "atk": {
+    "k": 10,
+    "n": 12
+   },
+   "def": {
+    "k": 3,
+    "n": 9
+   }
+  },
+  "fracture": {
+   "matches": 2,
+   "atk": {
+    "k": 11,
+    "n": 18
+   },
+   "def": {
+    "k": 11,
+    "n": 22
+   }
+  },
+  "haven": {
+   "matches": 6,
+   "atk": {
+    "k": 33,
+    "n": 52
+   },
+   "def": {
+    "k": 26,
+    "n": 61
+   }
+  },
+  "lotus": {
+   "matches": 6,
+   "atk": {
+    "k": 32,
+    "n": 53
+   },
+   "def": {
+    "k": 26,
+    "n": 56
+   }
+  },
+  "split": {
+   "matches": 2,
+   "atk": {
+    "k": 13,
+    "n": 20
+   },
+   "def": {
+    "k": 15,
+    "n": 26
+   }
+  },
+  "summit": {
+   "matches": 4,
+   "atk": {
+    "k": 25,
+    "n": 46
+   },
+   "def": {
+    "k": 18,
+    "n": 43
+   }
+  },
+  "sunset": {
+   "matches": 2,
+   "atk": {
+    "k": 5,
+    "n": 20
+   },
+   "def": {
+    "k": 13,
+    "n": 24
+   }
+  }
+ },
+ "n_plants": 511,
+ "n_review": 10,
+ "n_anti_eco_losses": 6,
+ "players": [
+  [
+   36,
+   705,
+   468,
+   0
+  ],
+  [
+   36,
+   705,
+   502,
+   3
+  ],
+  [
+   36,
+   705,
+   628,
+   1
+  ],
+  [
+   36,
+   705,
+   473,
+   3
+  ],
+  [
+   30,
+   595,
+   461,
+   3
+  ],
+  [
+   6,
+   110,
+   68,
+   0
+  ]
+ ]
+}
