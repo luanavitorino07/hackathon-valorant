@@ -67,6 +67,13 @@ export function FormationMap({ map, plants, site, selected, zoom = 'site', title
   const faded = selected ? plants.filter((p) => p !== selected) : []
   const ariaLabel = `${title ?? 'Formação no instante do plant'}: ${mapName(map.map)}${site !== 'all' ? `, site ${site}` : ''}, ${plants.length} plants. Atacantes em círculos vermelhos, defensores em losangos cianos.`
 
+  const m = unit * 2.5
+  const cl = unit * 6
+  const cTL = `M ${box.x + m} ${box.y + m + cl} L ${box.x + m} ${box.y + m} L ${box.x + m + cl} ${box.y + m}`
+  const cTR = `M ${box.x + box.w - m - cl} ${box.y + m} L ${box.x + box.w - m} ${box.y + m} L ${box.x + box.w - m} ${box.y + m + cl}`
+  const cBL = `M ${box.x + m} ${box.y + box.h - m - cl} L ${box.x + m} ${box.y + box.h - m} L ${box.x + m + cl} ${box.y + box.h - m}`
+  const cBR = `M ${box.x + box.w - m - cl} ${box.y + box.h - m} L ${box.x + box.w - m} ${box.y + box.h - m} L ${box.x + box.w - m} ${box.y + box.h - m - cl}`
+
   const marker = (role: 'atk' | 'def', x: number, y: number, v: number, key: string, opacity = 1, arrows = showArrows) => {
     const [sx, sy] = toSvg(x, y)
     const r = unit * 1.15
@@ -88,13 +95,25 @@ export function FormationMap({ map, plants, site, selected, zoom = 'site', title
 
   return (
     <figure className="m-0">
-      <svg viewBox={`${box.x} ${box.y} ${box.w} ${box.h}`} role="img" aria-label={ariaLabel} className="w-full aspect-square bg-bg border border-border block">
+      <svg viewBox={`${box.x} ${box.y} ${box.w} ${box.h}`} role="img" aria-label={ariaLabel} className="w-full aspect-square bg-[#070c12] border border-border block">
         <title>{ariaLabel}</title>
         <defs>
+          <radialGradient id="map-radar-bg" cx="50%" cy="50%" r="70%">
+            <stop offset="0%" stopColor="#14212e" />
+            <stop offset="60%" stopColor="#0c151e" />
+            <stop offset="100%" stopColor="#070c12" />
+          </radialGradient>
+          <pattern id="tactical-grid" width={box.w / 12} height={box.h / 12} patternUnits="userSpaceOnUse">
+            <line x1="0" y1="0" x2={box.w / 12} y2="0" stroke="rgba(236,232,225,0.035)" strokeWidth={unit * 0.15} />
+            <line x1="0" y1="0" x2="0" y2={box.h / 12} stroke="rgba(236,232,225,0.035)" strokeWidth={unit * 0.15} />
+          </pattern>
           <filter id="density-soft" x="0" y="0" width="100%" height="100%">
             <feGaussianBlur stdDeviation={(imgBox.w / (map.grid || 1)) * 0.6} />
           </filter>
         </defs>
+        {/* Fundo fade tático estilo radar Valorant com micro-grid */}
+        <rect x={box.x} y={box.y} width={box.w} height={box.h} fill="url(#map-radar-bg)" />
+        <rect x={box.x} y={box.y} width={box.w} height={box.h} fill="url(#tactical-grid)" />
         {/* Contornos oficiais das paredes e corredores do mapa */}
         {overlay && (
           <image
@@ -170,6 +189,13 @@ export function FormationMap({ map, plants, site, selected, zoom = 'site', title
             </g>
           )
         })}
+        {/* Cantoneiras táticas nos quatro cantos do radar */}
+        <g stroke="var(--color-bone)" strokeOpacity="0.25" strokeWidth={unit * 0.25} fill="none" strokeLinecap="square">
+          <path d={cTL} />
+          <path d={cTR} />
+          <path d={cBL} />
+          <path d={cBR} />
+        </g>
       </svg>
       <figcaption className="mt-2 flex flex-wrap items-center gap-4 text-[13px] text-muted">
         <span className="inline-flex items-center gap-1.5"><svg aria-hidden="true" width="12" height="12"><circle cx="6" cy="6" r="5" fill="var(--color-atk)" /></svg>Atacante vivo</span>
