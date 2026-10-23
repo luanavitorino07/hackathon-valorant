@@ -50,10 +50,11 @@
     min-height: 100vh;
     background-color: #0b1219;
     background-image:
-      radial-gradient(120% 80% at 50% -15%, rgba(32, 58, 78, 0.45) 0%, transparent 65%),
-      radial-gradient(70% 50% at 90% 100%, rgba(255, 70, 85, 0.05) 0%, transparent 50%),
-      radial-gradient(70% 50% at 10% 100%, rgba(61, 214, 198, 0.05) 0%, transparent 50%),
-      linear-gradient(180deg, #101a24 0%, #0b1219 50%, #070b0f 100%);
+      radial-gradient(55% 50% at 100% 18%, rgba(255, 70, 85, 0.30) 0%, transparent 70%),
+      radial-gradient(50% 55% at 0% 38%, rgba(214, 40, 54, 0.22) 0%, transparent 70%),
+      radial-gradient(120% 80% at 50% -15%, rgba(32, 58, 78, 0.40) 0%, transparent 65%),
+      radial-gradient(60% 40% at 8% 100%, rgba(61, 214, 198, 0.05) 0%, transparent 50%),
+      linear-gradient(180deg, #101a24 0%, #0b1219 50%, #1a0b10 100%);
     background-attachment: fixed;
     color: var(--color-bone);
     -webkit-font-smoothing: antialiased;
