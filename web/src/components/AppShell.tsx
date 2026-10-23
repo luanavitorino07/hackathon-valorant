@@ -53,7 +53,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <a href="#conteudo" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-bone focus:text-ink focus:px-3 focus:py-2">
         Pular para o conteúdo
       </a>
-      <header className="border-b border-border bg-bg/80 backdrop-blur-md sticky top-0 z-40 no-print">
+      <header className="border-b border-border bg-bg/95 sticky top-0 z-40 no-print">
         <div className="mx-auto max-w-[1280px] px-6 h-16 flex items-center justify-between gap-6">
           <NavLink to="/" className="flex items-center gap-2 no-underline" aria-label="ScoutRoom, início">
             <svg aria-hidden="true" width="22" height="22" viewBox="0 0 32 32"><path d="M6 26 L16 6 L26 26 Z" fill="none" stroke="var(--color-brand)" strokeWidth="3.5" /><circle cx="16" cy="19" r="3" fill="var(--color-bone)" /></svg>
