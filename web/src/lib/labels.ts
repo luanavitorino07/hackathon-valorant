@@ -24,11 +24,11 @@ export const BADGE_LABEL: Record<Badge, string> = {
 export const ARCHETYPE_LABEL: Record<string, string> = {
   compact: 'Compacto no spike',
   open: 'Aberto',
-  lurk: 'Fora do site / lurk',
+  lurk: 'Fora do BOMB / lurk',
 }
 
 export const ARCHETYPE_HELP: Record<string, string> = {
-  compact: 'Distância média dos atacantes vivos ao spike no terço mais baixo da liga (mesmo mapa e site).',
+  compact: 'Distância média dos atacantes vivos ao spike no terço mais baixo da liga (mesmo mapa e BOMB).',
   open: 'Dispersão das distâncias dos atacantes no terço mais alto da liga (exige 2+ atacantes vivos).',
   lurk: 'Pelo menos 1 atacante vivo a mais de 2R do spike (R = distância mediana da liga), ignorando prováveis AFKs.',
 }

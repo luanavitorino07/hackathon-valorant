@@ -254,9 +254,9 @@ function Attack({ t, L, s }: { t: TeamFile; L: LeagueFile; s: string }) {
           <StatCard label="Vitória após plantar" stat={a.postplant_win} color="var(--color-atk)" onEvidence={ev(`${s}.atk.postplant_win`, 'Rounds vencidos após o plant')} />
         </Grid>
       </Section>
-      <Section label="Sites" title="Onde planta">
+      <Section label="BOMBs" title="Onde planta">
         {s !== 'all' && a.sites ? (
-          <SiteBars sites={a.sites} onEv={(x) => ev(`${s}.atk.site.${x}`, `${mapName(s)}: plants no site ${x}`)} />
+          <SiteBars sites={a.sites} onEv={(x) => ev(`${s}.atk.site.${x}`, `${mapName(s)}: plants no BOMB ${x}`)} />
         ) : (
           <SitesByMap t={t} kind="sites" />
         )}
@@ -301,11 +301,11 @@ function Defense({ t, s }: { t: TeamFile; s: string }) {
           <StatCard label="Retakes bem-sucedidos" stat={d.retake} color="var(--color-def)" hint="Rounds vencidos quando o adversário plantou." onEvidence={ev(`${s}.def.retake`, 'Retakes bem-sucedidos')} />
         </Grid>
       </Section>
-      <Section label="Por site" title="Retake por site atacado">
+      <Section label="Por BOMB" title="Retake por BOMB atacado">
         {s !== 'all' && d.retake_by_site ? (
           <Grid cols={3}>
             {Object.entries(d.retake_by_site).map(([x, v]) => (
-              <StatCard key={x} label={`Site ${x}: defesas bem-sucedidas`} stat={v} color="var(--color-def)" onEvidence={ev(`${s}.def.retake.${x}`, `${mapName(s)}: retakes no site ${x}`)} />
+              <StatCard key={x} label={`BOMB ${x}: defesas bem-sucedidas`} stat={v} color="var(--color-def)" onEvidence={ev(`${s}.def.retake.${x}`, `${mapName(s)}: retakes no BOMB ${x}`)} />
             ))}
           </Grid>
         ) : (
@@ -313,7 +313,7 @@ function Defense({ t, s }: { t: TeamFile; s: string }) {
         )}
       </Section>
       <Section label="Pressão adversária" title="Onde os adversários plantam">
-        {s !== 'all' && d.opp_sites ? <SiteBars sites={d.opp_sites} onEv={(x) => ev(`${s}.def.opp_site.${x}`, `${mapName(s)}: adversários plantando no ${x}`)} /> : <SitesByMap t={t} kind="opp_sites" />}
+        {s !== 'all' && d.opp_sites ? <SiteBars sites={d.opp_sites} onEv={(x) => ev(`${s}.def.opp_site.${x}`, `${mapName(s)}: adversários plantando no BOMB ${x}`)} /> : <SitesByMap t={t} kind="opp_sites" />}
       </Section>
     </div>
   )

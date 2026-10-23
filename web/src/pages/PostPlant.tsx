@@ -102,7 +102,7 @@ export default function PostPlant() {
         <h1 className="mt-2">Pós-plant</h1>
         <p className="mt-3 max-w-3xl text-muted">
           Posições de todos os jogadores vivos no instante em que a spike foi plantada, separadas entre atacantes e defensores pelo time de cada um.
-          Os rótulos de formação são regras simples comparadas à liga no mesmo mapa e site. <strong className="text-bone">Análise exploratória.</strong>
+          Os rótulos de formação são regras simples comparadas à liga no mesmo mapa e BOMB. <strong className="text-bone">Análise exploratória.</strong>
         </p>
         <div className="mt-6 flex flex-wrap items-end gap-4">
           <TeamSelect teams={idx.data.teams} value={slug} onChange={(v) => { const n = new URLSearchParams(); n.set('time', v); setSp(n, { replace: true }); setSelected(null) }} />
@@ -110,7 +110,7 @@ export default function PostPlant() {
           {mapsWithPlants.length > 0 && (
             <Select label="Mapa" value={mapa ?? ''} onChange={(v) => update('mapa', v)} options={mapsWithPlants.map(([m, n]) => [m, `${mapName(m)} (${n})`])} />
           )}
-          <Select label="Site" value={site} onChange={(v) => update('site', v === 'all' ? null : v)} options={[['all', 'Todos'], ...sites.map((x) => [x, `Site ${x}`] as [string, string])]} />
+          <Select label="BOMB" value={site} onChange={(v) => update('site', v === 'all' ? null : v)} options={[['all', 'Todos'], ...sites.map((x) => [x, `BOMB ${x}`] as [string, string])]} />
           <Select label="Resultado" value={result} onChange={(v) => update('resultado', v === 'todos' ? null : v)} options={[['todos', 'Todos'], ['atk', 'Ataque venceu'], ['def', 'Defesa venceu']]} />
           <Select label="Formação" value={archetype} onChange={(v) => update('arquetipo', v === 'todos' ? null : v)} options={[['todos', 'Todas'], ...LABELS.map((l) => [l, ARCHETYPE_LABEL[l]] as [string, string]), ['none', 'Sem rótulo']]} />
         </div>
@@ -130,7 +130,7 @@ export default function PostPlant() {
                 {medianPlantTime !== null && (
                   <div className="text-sm tabular flex items-center gap-1.5 bg-surface border border-border px-3 py-1">
                     <span className="text-muted">
-                      {site === 'all' ? 'Tempo de plant (mediana):' : `Tempo no Site ${site} (mediana):`}
+                      {site === 'all' ? 'Tempo de plant (mediana):' : `Tempo no BOMB ${site} (mediana):`}
                     </span>
                     <span className="text-bone font-semibold text-base">
                       ⏱ {mmss(Math.round(medianPlantTime))}
@@ -139,7 +139,7 @@ export default function PostPlant() {
                 )}
               </div>
               <div role="group" aria-label="Enquadramento" className="inline-flex">
-                <button type="button" className="btn-ghost" aria-pressed={zoom === 'site'} onClick={() => setZoom('site')} disabled={site === 'all'}>Site</button>
+                <button type="button" className="btn-ghost" aria-pressed={zoom === 'site'} onClick={() => setZoom('site')} disabled={site === 'all'}>BOMB</button>
                 <button type="button" className="btn-ghost -ml-px" aria-pressed={zoom === 'map' || site === 'all'} onClick={() => setZoom('map')}>Mapa inteiro</button>
               </div>
             </div>
@@ -151,7 +151,7 @@ export default function PostPlant() {
             {selected && (
               <div className="mt-3 card p-4 flex flex-wrap items-center justify-between gap-3 text-sm">
                 <span>
-                  Destaque: {date(matches[selected.m]?.date)} vs {matches[selected.m]?.opp_name} · {roundLabel(selected.r)} · site {selected.site} · plant em {mmss(selected.t)} ·{' '}
+                  Destaque: {date(matches[selected.m]?.date)} vs {matches[selected.m]?.opp_name} · {roundLabel(selected.r)} · BOMB {selected.site} · plant em {mmss(selected.t)} ·{' '}
                   {selected.atk.length}v{selected.def.length} · {selected.atk_won ? 'ataque venceu' : 'defesa venceu'}
                 </span>
                 <button type="button" className="btn-ghost" onClick={() => setSelected(null)}>Mostrar todos</button>
@@ -192,7 +192,7 @@ export default function PostPlant() {
               <div className="overflow-x-auto max-h-[480px] overflow-y-auto border border-border">
                 <table className="data-table w-full">
                   <thead className="sticky top-0 bg-bg">
-                    <tr><th scope="col">Data</th><th scope="col">Adversário</th><th scope="col">Round</th><th scope="col">Site</th><th scope="col">Tempo</th><th scope="col">Vivos (ATK×DEF)</th><th scope="col">Formação</th><th scope="col">Defesa</th><th scope="col">Resultado</th></tr>
+                    <tr><th scope="col">Data</th><th scope="col">Adversário</th><th scope="col">Round</th><th scope="col">BOMB</th><th scope="col">Tempo</th><th scope="col">Vivos (ATK×DEF)</th><th scope="col">Formação</th><th scope="col">Defesa</th><th scope="col">Resultado</th></tr>
                   </thead>
                   <tbody>
                     {filtered.map((p) => {
@@ -209,7 +209,7 @@ export default function PostPlant() {
                           <td className="tabular">{mmss(p.t)}</td>
                           <td className="tabular">{p.atk.length}×{p.def.length} <span className="text-muted">({p.adv > 0 ? '+' : ''}{p.adv})</span></td>
                           <td>{p.labels.length ? p.labels.map((l) => ARCHETYPE_LABEL[l]).join(', ') : <span className="text-muted">sem rótulo</span>}</td>
-                          <td className="text-muted">{p.def_near === null ? '—' : p.def_near ? 'perto do site' : 'longe do site'}</td>
+                          <td className="text-muted">{p.def_near === null ? '—' : p.def_near ? 'perto do BOMB' : 'longe do BOMB'}</td>
                           <td className={p.atk_won ? 'text-atk' : 'text-def'}>{p.atk_won ? 'Ataque venceu' : 'Defesa venceu'}</td>
                         </tr>
                       )
@@ -221,7 +221,7 @@ export default function PostPlant() {
           </div>
         </div>
       )}
-      {t && <p className="mt-6 text-[13px] text-muted">Ver também: <Link className="underline" to={`/time/${t.slug}?aba=ataque`}>sites e ritmo do plant no dossiê</Link>.</p>}
+      {t && <p className="mt-6 text-[13px] text-muted">Ver também: <Link className="underline" to={`/time/${t.slug}?aba=ataque`}>BOMBs e ritmo do plant no dossiê</Link>.</p>}
     </div>
   )
 }
@@ -231,9 +231,9 @@ function SiteSummary({ t, role, mapa }: { t: NonNullable<ReturnType<typeof useTe
     const rows = t.postplant.summary_atk.filter((r) => r.map === mapa)
     return (
       <div className="card p-5">
-        <div className="eyebrow mb-3">Resumo por site · {t.name} atacando</div>
+        <div className="eyebrow mb-3">Resumo por BOMB · {t.name} atacando</div>
         <div className="overflow-x-auto"><table className="data-table w-full">
-          <thead><tr><th scope="col">Site</th><th scope="col">Plants</th><th scope="col">Formação + comum</th><th scope="col">Vitória</th><th scope="col">Tempo</th></tr></thead>
+          <thead><tr><th scope="col">BOMB</th><th scope="col">Plants</th><th scope="col">Formação + comum</th><th scope="col">Vitória</th><th scope="col">Tempo</th></tr></thead>
           <tbody>
             {rows.map((r) => (
               <tr key={r.site}>
@@ -246,16 +246,16 @@ function SiteSummary({ t, role, mapa }: { t: NonNullable<ReturnType<typeof useTe
             ))}
           </tbody>
         </table></div>
-        <p className="mt-2 text-[12px] text-muted">Vitória pós-plant com shrinkage em direção à liga no mesmo site.</p>
+        <p className="mt-2 text-[12px] text-muted">Vitória pós-plant com shrinkage em direção à liga no mesmo BOMB.</p>
       </div>
     )
   }
   const rows = t.postplant.summary_def.filter((r) => r.map === mapa)
   return (
     <div className="card p-5">
-      <div className="eyebrow mb-3">Resumo por site · {t.name} defendendo</div>
+      <div className="eyebrow mb-3">Resumo por BOMB · {t.name} defendendo</div>
       <table className="data-table w-full">
-        <thead><tr><th scope="col">Site</th><th scope="col">Plants adv.</th><th scope="col">Defesa perto do site</th><th scope="col">Retake vencido</th></tr></thead>
+        <thead><tr><th scope="col">BOMB</th><th scope="col">Plants adv.</th><th scope="col">Defesa perto do BOMB</th><th scope="col">Retake vencido</th></tr></thead>
         <tbody>
           {rows.map((r) => (
             <tr key={r.site}>
@@ -267,7 +267,7 @@ function SiteSummary({ t, role, mapa }: { t: NonNullable<ReturnType<typeof useTe
           ))}
         </tbody>
       </table>
-      <p className="mt-2 text-[12px] text-muted">“Perto” = distância média dos defensores vivos ao spike abaixo da mediana da liga naquele site.</p>
+      <p className="mt-2 text-[12px] text-muted">“Perto” = distância média dos defensores vivos ao spike abaixo da mediana da liga naquele BOMB.</p>
     </div>
   )
 }
